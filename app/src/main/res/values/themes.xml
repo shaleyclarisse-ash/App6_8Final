@@ -3,7 +3,13 @@
     <style name="Base.Theme.AppAct45" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/Salmon</item>
     </style>
 
     <style name="Theme.AppAct45" parent="Base.Theme.AppAct45" />
+
+    <style name="SplashScreen" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/bgsplash</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+    </style>
 </resources>
