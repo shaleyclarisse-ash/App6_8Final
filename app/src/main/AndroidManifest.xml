@@ -13,8 +13,7 @@
         android:theme="@style/Theme.AppAct45">
         <activity
             android:name=".Activity2"
-            android:exported="false"
-            android:theme="@style/Theme.AppAct45" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />

@@ -17,8 +17,7 @@ public class Activity2 extends AppCompatActivity {
         binding = Activity2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_2);
-
-
+        // Comment this out for now unless you have a NavHostFragment in your XML
+        // NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_2);
     }
 }
