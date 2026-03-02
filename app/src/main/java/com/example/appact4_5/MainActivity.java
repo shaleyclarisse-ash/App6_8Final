@@ -13,7 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public CardView games, google_map;
     private Button buttonNext;
 
@@ -31,9 +31,27 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        google_map=(CardView) findViewById(R.id.GoogleMap);
+        google_map.setOnClickListener(this);
+
     }
+
     public void openActivity2 () {
         Intent intent = new Intent(this, Activity2.class);
         startActivity(intent);
     }
-}
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+
+        if (id == R.id.GoogleMap) {
+            Intent i = new Intent(this, GoogleMap.class);
+            startActivity(i);
+        }
+        // You can add more conditions here if you have more buttons
+    /* else if (id == R.id.buttonNext) {
+        openActivity2();
+    }
+    */
+    }
+    }
