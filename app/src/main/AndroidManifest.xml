@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppAct45">
         <activity
+            android:name=".BottomNav"
+            android:exported="false" />
+        <activity
             android:name=".GoogleMap"
             android:exported="false" />
         <activity
