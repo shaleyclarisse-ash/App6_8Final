@@ -27,6 +27,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
 
+
+        google_map = findViewById(R.id.cardGoogleMap);
+
+        // 2. Set the Click Listener
+        google_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 3. Create an Intent to go from MainActivity to GoogleMap activity
+                Intent intent = new Intent(MainActivity.this, GoogleMap.class);
+                startActivity(intent);
+            }
+        });
         buttonNext = (Button) findViewById(R.id.buttonNext);
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override

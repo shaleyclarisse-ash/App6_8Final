@@ -13,11 +13,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.appact4_5.databinding.ActivityBottomNavBinding;
 import com.example.appact4_5.databinding.ActivityMainBinding;
 
 public class BottomNav extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    ActivityBottomNavBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +26,11 @@ public class BottomNav extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityBottomNavBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         repFragment(new HomeFragment());
 
-        binding.bottom_nav_view.setOnItemSelectedListener(item -> {
+        binding.bottomNavView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
                 repFragment(new HomeFragment());

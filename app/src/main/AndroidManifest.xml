@@ -18,6 +18,9 @@
             android:name=".GoogleMap"
             android:exported="false" />
         <activity
+            android:name=".GoogleMap"
+            android:exported="false" />
+        <activity
             android:name=".Activity2"
             android:exported="false" />
         <activity
