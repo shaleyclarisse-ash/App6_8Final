@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppAct45">
         <activity
+            android:name=".MainDrawableActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppAct45" />
+        <activity
             android:name=".BottomNav"
             android:exported="false" />
         <activity

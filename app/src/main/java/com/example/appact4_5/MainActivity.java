@@ -5,71 +5,102 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
-import com.example.appact4_5.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    public CardView games, google_map, google_play;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private CardView google_map, google_play;
     private Button buttonNext;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ImageView menuIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 1. Fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
 
+        // 2. Load the layout that contains the Drawer
+        setContentView(R.layout.activity_main_drawer);
 
+        try {
+            // 3. Initialize Views
+            google_map = findViewById(R.id.GoogleMap);
+            google_play = findViewById(R.id.GooglePlay);
+            buttonNext = findViewById(R.id.buttonNext);
+            drawerLayout = findViewById(R.id.drawer_layout);
+            navigationView = findViewById(R.id.navigation_view);
+            menuIcon = findViewById(R.id.imageView);
 
-        google_map = findViewById(R.id.cardGoogleMap);
+            // 4. Set Click Listeners
+            if (google_map != null) google_map.setOnClickListener(this);
+            if (google_play != null) google_play.setOnClickListener(this);
+            if (buttonNext != null) buttonNext.setOnClickListener(v -> openActivity2());
 
-        // 2. Set the Click Listener
-        google_map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 3. Create an Intent to go from MainActivity to GoogleMap activity
-                Intent intent = new Intent(MainActivity.this, GoogleMap.class);
-                startActivity(intent);
+            // 5. Drawer Toggle Logic
+            if (menuIcon != null && drawerLayout != null) {
+                menuIcon.setOnClickListener(view -> {
+                    if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        drawerLayout.openDrawer(GravityCompat.START);
+                    } else {
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                    }
+                });
             }
-        });
-        buttonNext = (Button) findViewById(R.id.buttonNext);
-        buttonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){ openActivity2();}
 
-        });
+            // 6. Navigation Component Setup
+            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.navHostFragment);
 
+            if (navHostFragment != null && navigationView != null) {
+                NavController navController = navHostFragment.getNavController();
+                NavigationUI.setupWithNavController(navigationView, navController);
+            }
 
-        google_map=(CardView) findViewById(R.id.GoogleMap);
-        google_map.setOnClickListener(this);
+            // 7. Modern Back Press Handling (Fix for your dependency version)
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                    } else {
+                        setEnabled(false); // Disable this callback and let system handle back
+                        onBackPressed();
+                    }
+                }
+            });
 
-        google_play=(CardView) findViewById(R.id.GooglePlay);
-        google_play.setOnClickListener(this);
-
+        } catch (Exception e) {
+            Toast.makeText(this, "Setup Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
-    public void openActivity2 () {
-        Intent intent = new Intent(this, Activity2.class);
-        startActivity(intent);
+    public void openActivity2() {
+        startActivity(new Intent(this, Activity2.class));
     }
+
     @Override
     public void onClick(View view) {
         int id = view.getId();
-
         if (id == R.id.GoogleMap) {
-            Intent i = new Intent(this, GoogleMap.class);
-            startActivity(i);
-        } else if (id == R.id.GooglePlay){
-            Intent i = new Intent(this, BottomNav.class);
-            startActivity(i);
+            startActivity(new Intent(this, GoogleMap.class));
+        } else if (id == R.id.GooglePlay) {
+            startActivity(new Intent(this, BottomNav.class));
         }
-
     }
-    }
+}
