@@ -11,34 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- 1. Include layout comes FIRST (will be in the background) -->
-        <include
-            layout="@layout/activity_main"
+        <!-- NavHostFragment now fills the screen to show our fragments -->
+        <fragment
+            android:id="@+id/navHostFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- 2. ImageView comes SECOND (will be on top of the include) -->
+        <!-- Menu icon on top of the fragments -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_margin="1dp"
+            android:layout_margin="10dp"
             android:padding="8dp"
             android:src="@drawable/menu_24px"
             android:elevation="10dp"
             android:translationZ="10dp"
             app:tint="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- 3. Hidden Fragment for Navigation logic -->
-        <fragment
-            android:id="@+id/navHostFragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

@@ -7,7 +7,6 @@
     tools:context=".NavProfileFragment">
 
    <Button
-       android:onClick="notif"
        android:id="@+id/ClickButton"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
